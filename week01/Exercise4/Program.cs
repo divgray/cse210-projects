@@ -26,14 +26,15 @@ class Program
             string input = Console.ReadLine();
             if (!int.TryParse(input, out int number))
             {
-                Console.WriteLine("Wrong data input. please enter whole numbers.");
-                continue;
+                Console.WriteLine("Wrong data input. please enter whole a number.");
+                continue; // incase a mistype happen, the program continues.
             }
             if (number == 0)
             {
                 break;
             }
 
+            // core requirements
             numbers.Add(number);
             sum += number;
             count ++;
