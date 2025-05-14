@@ -9,7 +9,7 @@ class Program
         int grade = int.Parse(answer);
 
         string letter = "";
- 
+
         if (grade >= 90)
         {
             letter = "A";
@@ -32,24 +32,23 @@ class Program
         }
 
         // trying stretch
-        int percentage = grade;
-        string dataStr = percentage.ToString();
         // converting to string so i can use len to determine the second number of the grade.
-        int secondDigit = int.Parse(dataStr[1].ToString());
         string sign = "";
-        if(secondDigit > 7)
+        string dataStr = grade.ToString();
+        if (dataStr.Length > 1)
         {
-            sign = "+";
+            int secondDigit = int.Parse(dataStr[1].ToString());
+            if (secondDigit > 7)
+            {
+                sign = "+";
+            }
+            else if (secondDigit < 3)
+            {
+                sign = "-";
+            }
         }
-        else if(secondDigit < 3)
-        {
-            sign = "-";
-        }
-        else if (grade > 97 || grade < 63)
-        {
-            sign ="";
-        }
-        else
+
+        if (grade > 97 || grade < 60)
         {
             sign = "";
         }
@@ -62,7 +61,7 @@ class Program
         }
         else
         {
-            Console.WriteLine("You did not pass.");
+            Console.WriteLine("You did not pass. Goodluck next time.");
         }
     }
 }
