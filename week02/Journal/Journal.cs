@@ -6,15 +6,16 @@ namespace JournalApp
 {
     public class Journal
     {
-        // Private member (abstraction) that holds all entries.
-        private List<Entry> entries;
+
+        // Holds all entries.
+        private List<Entry> entries { get; set; } = new List<Entry>();
 
         public Journal()
         {
             entries = new List<Entry>();
         }
 
-        // Add an entry to the journal.
+        // Add entry to the journal.
         public void AddEntry(Entry entry)
         {
             entries.Add(entry);
@@ -43,11 +44,11 @@ namespace JournalApp
             {
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    // Each entry is stored on its own line using '|' as a delimiter.
+                    // Each entry is stored on its own line using '|' to separate them.
                     foreach (var entry in entries)
                     {
                         // Using ISO 8601 format for the date for easy parsing.
-                        writer.WriteLine($"{entry.Date.ToString("o")} | {entry.Prompt}|{entry.Response}");
+                        writer.WriteLine($"{entry.Date.ToString("o")}|{entry.Prompt}|{entry.Response}");
                     }
                 }
                 Console.WriteLine("Journal saved successfully.");
@@ -58,7 +59,7 @@ namespace JournalApp
             }
         }
 
-        // Load journal entries from a file. This replaces the current entries. hmm
+        // Load journal entries from a file.
         public void LoadFromFile(string filename)
         {
             try
@@ -90,6 +91,36 @@ namespace JournalApp
             {
                 Console.WriteLine($"Error loading journal: {ex.Message}");
             }
+        }
+
+        public void DisplayLastEntryReminder()
+        {
+            if (entries.Count == 0)
+            {
+                Console.WriteLine("No previous entries found. Why not start your journal today?");
+                return;
+            }
+
+            // Assumes the most recent entry is the last one added.
+            Entry lastEntry = entries[entries.Count - 1];
+
+            // Calculate how much time has passed since the last entry.
+            TimeSpan timeSinceLastEntry = DateTime.Now - lastEntry.Date;
+
+            if (timeSinceLastEntry.TotalDays < 1)
+            {
+                Console.WriteLine("You've already written an entry today! Good Work!");
+            }
+            else if (timeSinceLastEntry.TotalDays < 3)
+            {
+                Console.WriteLine($"It's been {timeSinceLastEntry.Days} day(s) since your last entry. C'mon keep up the momentum!");
+            }
+            else
+            {
+                Console.WriteLine($"It's been {timeSinceLastEntry.Days} day(s) since your last entry. We would love to read your thoughts.");
+            }
+
+            // all entries are saved in the bin.
         }
     }
 }

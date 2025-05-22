@@ -15,7 +15,7 @@ namespace JournalApp
             Response = response;
         }
 
-        // Override ToString() to present the entry nicely. oh
+        // Override ToString() to present the entry nicely.
         public override string ToString()
         {
             return $"Date: {Date.ToShortDateString()}\nPrompt: {Prompt}\nResponse: {Response}\n";

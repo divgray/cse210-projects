@@ -12,20 +12,20 @@ namespace JournalApp
 
             while (!exit)
             {
-                // Menu options for the user.
+                // Menu options.
                 Console.WriteLine("\nJournal Menu:");
                 Console.WriteLine("1. Write a new entry");
                 Console.WriteLine("2. Display the journal");
-                Console.WriteLine("3. Save the journal to a file");
-                Console.WriteLine("4. Load the journal from a file");
+                Console.WriteLine("3. Load the journal from a file");
+                Console.WriteLine("4. Save the journal to a file");
                 Console.WriteLine("5. Exit");
-                Console.Write("Enter your choice: ");
+                Console.Write("Enter the number of your choice: ");
                 string choice = Console.ReadLine();
 
                 switch (choice)
                 {
                     case "1":
-                        // Generate a random prompt and capture the user's answer.
+                        // Generate a random prompt and get the users answer.
                         string prompt = promptGenerator.GetRandomPrompt();
                         Console.WriteLine($"\nPrompt: {prompt}");
                         Console.Write("Enter your response: ");
@@ -40,20 +40,25 @@ namespace JournalApp
                         journal.DisplayEntries();
                         break;
                     case "3":
-                        // Save journal to a file.
-                        Console.Write("Enter filename to save the journal: ");
-                        string saveFilename = Console.ReadLine();
-                        journal.SaveToFile(saveFilename);
-                        break;
-                    case "4":
                         // Load journal from a file.
                         Console.Write("Enter filename to load the journal: ");
                         string loadFilename = Console.ReadLine();
                         journal.LoadFromFile(loadFilename);
+                        journal.DisplayEntries();
                         break;
+                    case "4":
+                        // Save journal to a file.
+                        Console.Write("Enter filename to save the journal: ");
+                        string saveFilename = Console.ReadLine();
+                        journal.SaveToFile(saveFilename);
+                        journal.DisplayEntries();
+                        break;
+
                     case "5":
+                        // Before exiting, display the last entry message.
+                        journal.DisplayLastEntryReminder();
                         exit = true;
-                        Console.WriteLine("Exiting the application.");
+                        Console.WriteLine("Exiting the program.");
                         break;
                     default:
                         Console.WriteLine("Invalid choice, please try again.");
