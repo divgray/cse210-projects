@@ -1,0 +1,114 @@
+@startuml
+'--------------------------
+' Class: Program
+'--------------------------
+class Program {
+  + Main(args: string[]): void
+}
+
+'--------------------------
+' Class: Video
+'--------------------------
+class Video {
+  - _title: string
+  - _author: string
+  - _length: int
+  - _comments: List<Comment>
+  + Video(title: string, author: string, length: int)
+  + AddComment(comment: Comment): void
+  + GetCommentCount(): int
+  + Title: string {get}
+  + Author: string {get}
+  + Length: int {get}
+  + Comments: List<Comment> {get}
+}
+
+'--------------------------
+' Class: Comment
+'--------------------------
+class Comment {
+  - _commenterName: string
+  - _commentText: string
+  + Comment(commenterName: string, commentText: string)
+  + CommenterName: string {get}
+  + CommentText: string {get}
+}
+
+'--------------------------
+' Relationships
+'--------------------------
+Program ..> Video : creates/uses
+Video "1" o-- "*" Comment : contains
+
+@enduml
+
+
+@startuml
+'--------------------------
+' Class: Address
+'--------------------------
+class Address {
+  - _street: string
+  - _city: string
+  - _state: string
+  - _country: string
+  + Address(street: string, city: string, state: string, country: string)
+  + IsInUSA(): bool
+  + GetFullAddress(): string
+}
+
+'--------------------------
+' Class: Customer
+'--------------------------
+class Customer {
+  - _name: string
+  - _address: Address
+  + Customer(name: string, address: Address)
+  + GetName(): string
+  + GetAddress(): Address
+  + LivesInUSA(): bool
+}
+
+'--------------------------
+' Class: Product
+'--------------------------
+class Product {
+  - _productName: string
+  - _productId: string
+  - _price: decimal
+  - _quantity: int
+  + Product(productName: string, productId: string, price: decimal, quantity: int)
+  + GetTotalCost(): decimal
+  + GetProductName(): string
+  + GetProductId(): string
+}
+
+'--------------------------
+' Class: Order
+'--------------------------
+class Order {
+  - _customer: Customer
+  - _products: List<Product>
+  + Order(customer: Customer)
+  + AddProduct(product: Product): void
+  + CalculateTotalCost(): decimal
+  + GetPackingLabel(): string
+  + GetShippingLabel(): string
+}
+
+'--------------------------
+' Class: Program
+'--------------------------
+class Program {
+  + Main(args: string[]): void
+}
+
+'--------------------------
+' Associations
+'--------------------------
+Customer "1" *-- "1" Address : uses
+Order "1" --> "1" Customer : has
+Order "1" o-- "0..*" Product : contains
+Program ..> Order : creates/uses
+
+@enduml
