@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace MindfulnessProgram
 {
@@ -9,23 +10,46 @@ namespace MindfulnessProgram
         {
         }
 
+        private void AnimateLetter(bool isGrowing, int cycles, int delay)
+        {
+            if (isGrowing)
+            {
+                for (int i = 1; i <= cycles; i++)
+                {
+                    // To fix the flickering from before.
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.Write("Breathe in... " + new string('O', i));
+                    Thread.Sleep(delay);
+                }
+            }
+            else
+            {
+                for (int i = cycles; i > 0; i--)
+                {
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.Write("Breathe out... " + new string('O', i));
+                    Thread.Sleep(delay);
+                }
+            }
+        }
+
+
         public override void RunActivity()
         {
             DisplayStartingMessage();
 
+            int cycles = 10;
+            int delay = 300;
             DateTime startTime = DateTime.Now;
+
             while ((DateTime.Now - startTime).TotalSeconds < _duration)
             {
-                Console.Write("Breathe in... ");
-                Countdown(4); // breathe in for 4 seconds
-                Console.WriteLine();
-
-                Console.Write("Breathe out... ");
-                Countdown(6); // breathe out for 6 seconds
-                Console.WriteLine();
+                AnimateLetter(true, cycles, delay);
+                AnimateLetter(false, cycles, delay);
             }
 
             DisplayEndingMessage();
         }
+
     }
 }
