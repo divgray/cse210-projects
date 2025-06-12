@@ -3,7 +3,6 @@ using System.Threading;
 
 namespace MindfulnessProgram
 {
-    // Abstract base class that holds common attributes and behaviors for all activities.
     public abstract class MindfulnessActivity
     {
         protected int _duration;
@@ -15,8 +14,6 @@ namespace MindfulnessProgram
             _activityName = activityName;
             _activityDescription = activityDescription;
         }
-
-        // Display the starting message and get the duration from the user.
         public void DisplayStartingMessage()
         {
             Console.Clear();
@@ -56,12 +53,10 @@ namespace MindfulnessProgram
             {
                 Console.Write(i);
                 Thread.Sleep(1000);
-                // Overwrite the number so it appears to count down.
                 Console.Write("\b \b");
             }
         }
 
-        // Display common ending message.
         public void DisplayEndingMessage()
         {
             Console.WriteLine("Well done!");
@@ -70,7 +65,6 @@ namespace MindfulnessProgram
             PauseWithSpinner(3);
         }
 
-        // Abstract method to force each derived class to implement its activity.
         public abstract void RunActivity();
     }
 }
