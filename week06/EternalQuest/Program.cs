@@ -271,7 +271,6 @@ namespace EternalQuestProgram
 
         static string GetLevelMessage(int level)
         {
-            // Customize the messages for each level as desired.
             switch (level)
             {
                 case 2:
@@ -284,7 +283,10 @@ namespace EternalQuestProgram
                     return "Impressive! You've reached a milestone.";
                 case 6:
                     return "Fantastic! Your quest is truly epic.";
-                // Add more cases as needed.
+                case 7:
+                    return "Unbelievable! You are a Legend.";
+                case 8:
+                    return "Such determination. Be proud of yourself.";
                 default:
                     return "Keep pushing for new heights!";
             }
